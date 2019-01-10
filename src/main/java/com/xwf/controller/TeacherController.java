@@ -19,13 +19,9 @@ public class TeacherController {
 
 
     @RequestMapping(value = "/getTeacherName/{id}", method = RequestMethod.GET)
-    public String getTeacherName(HttpServletRequest Request, HttpServletResponse Response,
-                                 @PathVariable(value = "id") int id) {
-
-
+    public String getTeacherName(@PathVariable(value = "id") int id) {
         return teacherService.getTeacherInfoById(id).getName();
     }
-
 
     @RequestMapping(value = "/getTeacherNames", method = RequestMethod.GET)
     public List<Teacher> getTeacherNames(HttpServletRequest request) {
@@ -35,12 +31,12 @@ public class TeacherController {
         //同上，都可转String为List<String>
         //List<String> list = Arrays.asList(teacherIds.split(","));
         List<Integer> ids = new ArrayList<>(list.length);
-        for(int i=0; i<list.length ; i++){
+        //list需要逐条赋值
+        for(int i=0; i<list.length; i++){
             ids.add(Integer.valueOf(list[i]).intValue());
         }
 
         List<Teacher> teachers = teacherService.getTeacherInfoByIds(ids);
-
 
         return teachers;
     }
@@ -48,10 +44,10 @@ public class TeacherController {
     @RequestMapping(value = "/getTeacherName2", method = RequestMethod.POST)
     public List<Teacher> getTeacherName2(@RequestBody Map map) {
 
+        //获取入参中的ids并转为List<Integer>
         List<Integer> ids = (ArrayList<Integer>)map.get("ids");
 
         List<Teacher> teachers = teacherService.getTeacherInfoByIds(ids);
-
 
         return teachers;
     }
