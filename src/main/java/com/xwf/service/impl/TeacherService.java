@@ -6,6 +6,7 @@ import com.xwf.vo.Teacher;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class TeacherService implements ITeacherService {
@@ -18,6 +19,11 @@ public class TeacherService implements ITeacherService {
         Teacher teacher = teacherMapper.selectByPrimaryKey(id);
 
         return teacher;
+    }
+
+    public List<Teacher> getTeacherInfoByIds(List<Integer> ids) {
+        List<Teacher> teachers = teacherMapper.selectByPrimaryKeys(ids);
+        return teachers;
     }
 
 }
